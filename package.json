@@ -1,19 +1,46 @@
 {
-  "name": "thoughtworks",
+  "name": "veact",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --open --config webpack/webpack.config.dev.js",
+    "build": "webpack --config webpack/webpack.config.prod.js  --colors"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/77Vincent/thoughtworks.git"
+    "url": "git+https://github.com/77Vincent/webpack-starter.git"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "webpack",
+    "startkit",
+    "frontend",
+    "es6",
+    "javascript"
+  ],
+  "author": "77Vincent",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/77Vincent/thoughtworks/issues"
+    "url": "https://github.com/77Vincent/webpack-starter/issues"
   },
-  "homepage": "https://github.com/77Vincent/thoughtworks#readme"
+  "homepage": "https://github.com/77Vincent/webpack-starter#readme",
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^1.0.0",
+    "eslint": "^5.4.0",
+    "eslint-loader": "^2.1.0",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.2",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5",
+    "webpack-merge": "^4.1.4"
+  }
 }

@@ -1,0 +1,32 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "rules": {
+    "import/no-extraneous-dependencies": "off",
+    "no-underscore-dangle": "off",
+    "init-declarations": ["error", "always"],
+    "semi": ["error", "never"],
+    "camelcase": "off",
+    "linebreak-style": "off",
+    "curly": "error",
+    "no-console": ["error", {
+      "allow": ["warn", "error"]
+    }],
+    "max-len": ["error", {
+      "code": 120
+    }],
+    "no-script-url": [0],
+    "default-case": [0],
+    "no-param-reassign": [0],
+    "no-return-await": [0],
+    "arrow-body-style": [0],
+    "import/prefer-default-export": [0]
+  }
+}

@@ -5,7 +5,7 @@ class Veact {
   }
 
   static createElement(type = 'div', props = {}, children = []) {
-    return { type, props, children };
+    return { type, props, children }
   }
 
   static createApp($root, App, store = {}) {
@@ -16,7 +16,7 @@ class Veact {
 
   render(node) {
     if (typeof node === 'string') {
-      return document.createTextNode(node);
+      return document.createTextNode(node)
     }
 
     if (typeof node === 'function') {
@@ -29,15 +29,15 @@ class Veact {
     
     const { className, onClick } = node.props
 
-    const $el = document.createElement(node.type);
+    const $el = document.createElement(node.type)
 
     if (className) { $el.className = className }
     if (onClick) { $el.onclick = onClick }
 
     node.children
       .map((v) => this.render(v))
-      .forEach($el.appendChild.bind($el));
-    return $el;
+      .forEach($el.appendChild.bind($el))
+    return $el
   }
 }
 
