@@ -1,7 +1,18 @@
-const Veact = {
-  h(type = 'div', props = {}, children = []) {
+class Veact {
+  constructor(App, store) {
+    this.App = App
+    this.store = store
+  }
+
+  static createElement(type = 'div', props = {}, children = []) {
     return { type, props, children };
-  },
+  }
+
+  static createApp($root, App, store = {}) {
+    const AppInstance = new Veact(App, store)
+    $root.appendChild(AppInstance.render(App))
+    return AppInstance
+  }
 
   render(node) {
     if (typeof node === 'string') {
@@ -9,7 +20,11 @@ const Veact = {
     }
 
     if (typeof node === 'function') {
-      node = node()
+      node = node({
+        store,
+        App: this.App,
+        render: this.render,
+      })
     }
     
     const { className, onClick } = node.props
@@ -20,34 +35,48 @@ const Veact = {
     if (onClick) { $el.onclick = onClick }
 
     node.children
-      .map(Veact.render)
+      .map((v) => this.render(v))
       .forEach($el.appendChild.bind($el));
     return $el;
-  },
-  
-  mount(DOM, virtualDOM) {
-    DOM.appendChild(Veact.render(virtualDOM))
   }
 }
 
-const arr = [1, 2, 3, 4]
+const Item = (props, todo) => {
+  return Veact.createElement('li', { className: 'App-todo-item'}, [`${todo.content}`])
+}
 
+const Todo = props => Veact.createElement(
+  'ul',
+  { className: 'App-todo-list' },
+  props.store.todos.map(todo => props => Item(props, todo))
+)
 
-const Item = props => () => Veact.h('li', { className: 'App-todo-item'}, [`to do ${props}`])
-
-const Todo = () => Veact.h('ul', { className: 'App-todo-list' }, arr.map(v => Item(v)))
-
-const Button = () => Veact.h(
+const Button = props => Veact.createElement(
   'button', {
     className: 'App-button',
-    onClick: () => { console.log(11111) },
+    onClick: () => {
+    },
   }, ['Add to do']
 )
 
-const Header = () => Veact.h('h1', {}, ['Hello World'])
+const Header = props => {
+  return Veact.createElement('h1', {}, [props.store.title])
+}
 
-const App = Veact.h(
-  'div', { className: 'Welcome'}, [Header, Todo, Button]
+const store = {
+  title: 'Hello World',
+  todos: [
+    { content: 'todo 1'},
+    { content: 'todo 2'},
+    { content: 'todo 3'},
+    { content: 'todo 4'},
+  ]
+} 
+
+Veact.createApp(
+  document.getElementById('root'),
+  Veact.createElement('div', { className: 'App-root'}, [Header, Todo, Button]),
+  store
 )
 
-Veact.mount(document.getElementById('root'), App)
+// const Header = App.createComponent('h1', {}, ['Hello World'])
