@@ -1,6 +1,7 @@
 class Veact {
   constructor(rootDOM, virtualDOM, model) {
     this.rootDOM = rootDOM
+    this.oldVirtualDOM = virtualDOM
     this.virtualDOM = virtualDOM 
     this.model = model 
   }
@@ -13,7 +14,8 @@ class Veact {
   }
 
   static createElement(type = 'div', props = {}, ...children) {
-    return { type, props, children }
+    const el = { type, props, children }
+    return el
   }
 
   mount(...children) {
@@ -22,16 +24,17 @@ class Veact {
     }
   }
 
+  setState(input = {}) {
+    Object.assign(this.model, input)
+  }
+
   render(node) {
     if (typeof node === 'string') {
       return document.createTextNode(node)
     }
 
     if (typeof node === 'function') {
-      node = node({
-        virtualDOM: this.virtualDOM,
-        model: this.model,
-      })
+      node = node(this)
     }
     
     const { className, onClick } = node.props
@@ -42,8 +45,9 @@ class Veact {
     if (onClick) { $el.onclick = onClick }
 
     node.children
-      .map((v) => this.render(v))
+      .map(v => this.render(v))
       .forEach($el.appendChild.bind($el))
+    
     return $el
   }
 }
