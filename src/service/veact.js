@@ -9,13 +9,15 @@ class Veact {
     return new Veact(rootDOM, {}, model)
   }
 
-  static createElement(type = 'div', props, ...children) {
+  static createElement(type, props, ...children) {
     if (typeof type === 'function') {
       const vDOM = type(props)
       type = vDOM.type
       children = vDOM.children
     }
 
+    // Config Initialization
+    type = type ? type : 'div'
     props = props ? props : {}
 
     const childrenVDOM = children.map(child => {
@@ -49,8 +51,14 @@ class Veact {
     const { className, onClick, style } = vDOM.props
     const $el = document.createElement(vDOM.type)
 
+    // Apply valid DOM properties to DOM
     if (className) { $el.className = className }
     if (onClick) { $el.onclick = onClick }
+    if (style) {
+      for (let key of Object.keys(style)) {
+        $el.style[key] = style[key]
+      }
+    }
 
     vDOM.children
       .map(v => this.render(v))
