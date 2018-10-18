@@ -1,4 +1,6 @@
-import Veact from '../../service/veact'
+import Veact from '../service/veact'
+
+import { Layout } from '../components'
 
 export default (app) => {
   return Veact.createElement(
@@ -20,6 +22,7 @@ export default (app) => {
         },
       },
       'App logo',
-    )
+    ),
+    Layout(app)
   )
 }

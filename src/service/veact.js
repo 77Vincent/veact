@@ -10,13 +10,20 @@ class Veact {
   }
 
   static createElement(type = 'div', props = {}, ...children) {
-    return { type, props, children }
+    const childrenVDOM = children.map(child => {
+      if (typeof child === 'function') {
+        return child()
+      }
+      return child
+    })
+    return { type, props, children: childrenVDOM }
   }
 
   mount(App) {
-    this.rootDOM.appendChild(this.render(App(this)))
-    this.vDOM = App(this) 
+    const vDOM = App(this)
+    this.vDOM = vDOM 
     this.App = App
+    this.rootDOM.appendChild(this.render(vDOM))
   }
 
   setState(input = {}) {
