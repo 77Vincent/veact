@@ -1,6 +1,6 @@
 import Veact from '../../service/veact'
 
-const Nav = ({ app }) => {
+export default ({ app }) => {
   const removeItem = (index) => () => {
     app.dispatch(model => {
       const newTodos = [...model.todos]
@@ -23,6 +23,13 @@ const Nav = ({ app }) => {
   }
   
   const reload = () => {
+    app.dispatch(model => {
+      return {
+        ...model,
+        isPageLoading: true,
+      }
+    })
+
     fetch('https://jsonplaceholder.typicode.com/todos')
       .then(res => res.json())
       .then(json => {
@@ -30,6 +37,7 @@ const Nav = ({ app }) => {
           return {
             ...model,
             todos: json.slice(0, 20),
+            isPageLoading: false,
           }
         })
       })
@@ -66,5 +74,3 @@ const Nav = ({ app }) => {
     </div>
   )
 }
-
-export default Nav

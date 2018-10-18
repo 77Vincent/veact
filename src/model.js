@@ -1,4 +1,5 @@
 export default {
   title: 'Hello World',
-  todos: []
+  todos: [],
+  isPageLoading: true,
 } 

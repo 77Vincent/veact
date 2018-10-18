@@ -1,6 +1,6 @@
 import Veact from '../../service/veact'
 
-const Header = () => {
+export default () => {
   return (
     <header
       className="App-header"
@@ -13,5 +13,3 @@ const Header = () => {
     </header>
   )
 }
-
-export default Header

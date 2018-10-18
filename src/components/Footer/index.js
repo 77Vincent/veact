@@ -1,6 +1,6 @@
 import Veact from '../../service/veact'
 
-const Footer = () => {
+export default () => {
   return (
     <footer
       className="App-footer"
@@ -14,5 +14,3 @@ const Footer = () => {
     </footer>
   ) 
 }
-
-export default Footer

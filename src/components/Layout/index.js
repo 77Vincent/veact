@@ -2,12 +2,10 @@ import Veact from '../../service/veact'
 
 import Nav from '../Nav'
 
-const Layout = ({ app }) => {
+export default ({ app }) => {
   return (
     <div>
       <Nav app={app} />
     </div>
   )
 }
-
-export default Layout

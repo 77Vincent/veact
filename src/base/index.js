@@ -1,6 +1,6 @@
 import Veact from '../service/veact'
 
-import { Header, Layout, Footer } from '../components'
+import { Header, Layout, Footer, Loading } from '../components'
 
 const App = (app) => {
   app.onMount(() => {
@@ -11,6 +11,7 @@ const App = (app) => {
           return {
             ...model,
             todos: json.slice(0, 20),
+            isPageLoading: false,
           }
         })
       })
@@ -21,6 +22,8 @@ const App = (app) => {
       className="App-root"
       style={{backgroundColor: 'lightyellow'}}
     >
+      <Loading app={app}/>
+
       <Header />
 
       <Layout app={app} />
