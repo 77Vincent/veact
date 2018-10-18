@@ -12,12 +12,37 @@ export default ({ app }) => {
     })
   }
 
+  const toggleTodo = (index) => () => {
+    app.dispatch(model => {
+      const newTodos = [...model.todos]
+      const target = newTodos.filter((item, i) => {
+        return  i === index
+      })
+      const newTarget = Object.assign({}, target[0])
+      newTarget.completed = !newTarget.completed 
+      newTodos.splice(index, 1, newTarget)
+      return {
+        ...model,
+        todos: newTodos,
+      }
+    })
+  }
+
   const addTodo = () => {
     app.dispatch(model => {
       const newTodos = [...model.todos, { title: 'New item' }]
       return {
         ...model,
         todos: newTodos,
+      }
+    })
+  }
+
+  const removeAll = () => {
+    app.dispatch(model => {
+      return {
+        ...model,
+        todos: [],
       }
     })
   }
@@ -46,7 +71,9 @@ export default ({ app }) => {
   const Item = ({ item, index }) => {
     return (
       <li>
-        <span> {item.title} </span>
+        <h4>{item.title}</h4>
+        <span>Is completed: {item.completed}</span>
+        <button onClick={toggleTodo(index)}>Complete</button>
         <button onClick={removeItem(index)}>Remove</button>
       </li>
     )
@@ -66,6 +93,11 @@ export default ({ app }) => {
         className="App-nav-button"
         onClick={addTodo}
       >Add todo</button>
+
+      <button
+        className="App-nav-button"
+        onClick={removeAll}
+      >Remove all</button>
 
       <button
         className="App-nav-button"
