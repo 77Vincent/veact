@@ -17,16 +17,20 @@ const _ = {
 class Veact {
   constructor(rootDOM, vDOM, model) {
     this.rootDOM = rootDOM
-    this.vDOM = vDOM 
-    this.model = model 
+    this.vDOM = vDOM
+    this.model = model
+    this.App = null
+    this.components = new Set([]) 
   }
 
   static createApp(rootDOM, model) {
     return new Veact(rootDOM, {}, model)
   }
 
+  // Create the vDOM object for render
   static createElement(type, props, ...children) {
     // For directly passing function as a component
+    // the babel plugin-transform-react-jsx will parse the whole function as the type
     if (_.isFunction(type)) {
       const vDOM = type(props)
       type = vDOM.type
@@ -51,6 +55,13 @@ class Veact {
     return { type, props, children: childrenVDOM }
   }
 
+  onMount(callback, component) {
+    if (!this.components.has(component)) {
+      callback()
+    }
+    this.components.add(component)
+  }
+
   mount(App) {
     const vDOM = App(this)
     this.vDOM = vDOM 
@@ -58,7 +69,7 @@ class Veact {
     this.rootDOM.appendChild(this.render(vDOM))
   }
 
-  setState(callback) {
+  dispatch(callback) {
     const newModel = callback(this.model)
     _.assign(this.model, newModel)
     this.rootDOM.removeChild(this.rootDOM.children[0])

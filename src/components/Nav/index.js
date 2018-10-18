@@ -1,8 +1,8 @@
 import Veact from '../../service/veact'
 
-export default ({ app }) => {
-  const removeItem = (index) => {
-    app.setState(model => {
+const Nav = ({ app }) => {
+  const removeItem = (index) => () => {
+    app.dispatch(model => {
       const newTodos = [...model.todos]
       newTodos.splice(index, 1)
       return {
@@ -13,20 +13,33 @@ export default ({ app }) => {
   }
 
   const addTodo = () => {
-    app.setState(model => {
-      const newTodos = [...model.todos, { content: `todo ${model.todos.length + 1}` }]
+    app.dispatch(model => {
+      const newTodos = [...model.todos, { title: 'New item' }]
       return {
         ...model,
         todos: newTodos,
       }
     })
   }
+  
+  const reload = () => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(res => res.json())
+      .then(json => {
+        app.dispatch(model => {
+          return {
+            ...model,
+            todos: json.slice(0, 20),
+          }
+        })
+      })
+  }
 
-  const Item = ({ item, id }) => {
+  const Item = ({ item, index }) => {
     return (
       <li>
-        <span> {item.content} </span>
-        <button onClick={removeItem}>Remove</button>
+        <span> {item.title} </span>
+        <button onClick={removeItem(index)}>Remove</button>
       </li>
     )
   }
@@ -35,8 +48,8 @@ export default ({ app }) => {
     <div className="App-nav">
       <ul>
         {
-          app.model.todos.map(item => {
-            return <Item item={item} />
+          app.model.todos.map((item, index) => {
+            return <Item item={item} index={index} />
           })
         }
       </ul>
@@ -45,6 +58,13 @@ export default ({ app }) => {
         className="App-nav-button"
         onClick={addTodo}
       >Add todo</button>
+
+      <button
+        className="App-nav-button"
+        onClick={reload}
+      >Reload</button>
     </div>
   )
 }
+
+export default Nav
