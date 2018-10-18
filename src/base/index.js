@@ -1,6 +1,6 @@
 import Veact from '../service/veact'
 
-import { Layout } from '../components'
+import { Layout, Footer } from '../components'
 
 export default (app) => {
   return Veact.createElement(
@@ -15,14 +15,18 @@ export default (app) => {
       'div',
       {
         className: 'App-header-logo',
-        onClick: () => {
-          app.setState({
-            title: 'Bye Bye World',
+        onClick() {
+          app.setState((state) => {
+            return {
+              ...state,
+              title: 'New title',
+            }
           })
         },
       },
       'App logo',
     ),
-    Layout(app)
+    Layout(app),
+    Footer
   )
 }

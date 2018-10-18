@@ -26,8 +26,9 @@ class Veact {
     this.rootDOM.appendChild(this.render(vDOM))
   }
 
-  setState(input = {}) {
-    Object.assign(this.model, input)
+  setState(callback) {
+    const newModel = callback(this.model)
+    Object.assign(this.model, newModel)
     this.rootDOM.removeChild(this.rootDOM.children[0])
     this.rootDOM.appendChild(this.render(this.App(this)))
   }

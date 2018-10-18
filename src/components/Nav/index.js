@@ -11,8 +11,12 @@ export default (app) => {
     Veact.createElement( 'ul', {}, ...items,
       Veact.createElement('button', {
         onClick() {
-          app.setState({
-            title: 1111111,
+          app.setState((state) => {
+            const newTodos = [...state.todos, { content: `todo ${state.todos.length + 1}` }]
+            return {
+              ...state,
+              todos: newTodos,
+            }
           })
         },
       }, 'Add todo')
