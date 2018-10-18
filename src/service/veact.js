@@ -1,50 +1,42 @@
 class Veact {
-  constructor(rootDOM, virtualDOM, model) {
+  constructor(rootDOM, vDOM, model) {
     this.rootDOM = rootDOM
-    this.oldVirtualDOM = virtualDOM
-    this.virtualDOM = virtualDOM 
+    this.vDOM = vDOM 
     this.model = model 
   }
 
   static createApp(rootDOM, model) {
-    const virtualDOM = Veact.createElement('div')
-    const app = new Veact(rootDOM, virtualDOM, model)
-    rootDOM.appendChild(Veact.prototype.render(virtualDOM))
-    return app
+    return new Veact(rootDOM, {}, model)
   }
 
   static createElement(type = 'div', props = {}, ...children) {
-    const el = { type, props, children }
-    return el
+    return { type, props, children }
   }
 
-  mount(...children) {
-    for (let child of children) {
-      this.rootDOM.appendChild(this.render(child))
-    }
+  mount(App) {
+    this.rootDOM.appendChild(this.render(App(this)))
+    this.vDOM = App(this) 
+    this.App = App
   }
 
   setState(input = {}) {
     Object.assign(this.model, input)
+    this.rootDOM.removeChild(this.rootDOM.children[0])
+    this.rootDOM.appendChild(this.render(this.App(this)))
   }
 
-  render(node) {
-    if (typeof node === 'string') {
-      return document.createTextNode(node)
+  render(vDOM) {
+    if (typeof vDOM === 'string') {
+      return document.createTextNode(vDOM)
     }
 
-    if (typeof node === 'function') {
-      node = node(this)
-    }
-    
-    const { className, onClick } = node.props
-
-    const $el = document.createElement(node.type)
+    const { className, onClick, style } = vDOM.props
+    const $el = document.createElement(vDOM.type)
 
     if (className) { $el.className = className }
     if (onClick) { $el.onclick = onClick }
 
-    node.children
+    vDOM.children
       .map(v => this.render(v))
       .forEach($el.appendChild.bind($el))
     

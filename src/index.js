@@ -1,10 +1,7 @@
 import Veact from './service/veact'
 
 import model from './model'
-import { Header, Footer, Layout } from './components'
+import { App } from './components'
 
-const App = Veact.createApp(document.getElementById('root'), model)
+Veact.createApp(document.getElementById('root'), model).mount(App)
 
-App.mount(Header, Layout, Footer)
-
-export default App
