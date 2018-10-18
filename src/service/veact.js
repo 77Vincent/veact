@@ -22,6 +22,7 @@ class Veact {
     if (_.isFunction(type)) {
       const vDOM = type(props)
       type = vDOM.type
+      props = vDOM.props
       children = vDOM.children
     }
 
