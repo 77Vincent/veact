@@ -1,6 +1,6 @@
 import Veact from '../../service/veact'
 
-export default (app) => {
+export default ({ app }) => {
   const Item = (item, index) => {
     return Veact.createElement(
       'li',

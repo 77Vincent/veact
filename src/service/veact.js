@@ -9,7 +9,15 @@ class Veact {
     return new Veact(rootDOM, {}, model)
   }
 
-  static createElement(type = 'div', props = {}, ...children) {
+  static createElement(type = 'div', props, ...children) {
+    if (typeof type === 'function') {
+      const vDOM = type(props)
+      type = vDOM.type
+      children = vDOM.children
+    }
+
+    props = props ? props : {}
+
     const childrenVDOM = children.map(child => {
       if (typeof child === 'function') {
         return child()

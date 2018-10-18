@@ -42,6 +42,7 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
     "circular-dependency-plugin": "^5.0.2"
   }
 }

@@ -1,5 +1,5 @@
 import Veact from '../../service/veact'
 
 export default () => {
-  return Veact.createElement('footer', { className: 'App-footer' }, 'Footer')
+  return <footer>Footer</footer>
 }
