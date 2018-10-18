@@ -4,6 +4,14 @@ const _ = {
   isFunction: (input) => _.is(() => {})(input),
   isArray: (input) => _.is([])(input),
   isObject: (input) => _.is(({}))(input),
+  assign(source = {}, ...inputs) {
+    for (let input of inputs) {
+      for (let key of Object.keys(input)) {
+        source[key] = input[key]
+      }
+    }
+    return source
+  }
 }
 
 class Veact {
@@ -52,7 +60,7 @@ class Veact {
 
   setState(callback) {
     const newModel = callback(this.model)
-    Object.assign(this.model, newModel)
+    _.assign(this.model, newModel)
     this.rootDOM.removeChild(this.rootDOM.children[0])
     this.rootDOM.appendChild(this.render(this.App(this)))
   }
