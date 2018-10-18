@@ -1,3 +1,11 @@
+const _ = {
+  is: type => input => Object.prototype.toString.call(type) === Object.prototype.toString.call(input),
+  isString: (input) => _.is('')(input),
+  isFunction: (input) => _.is(() => {})(input),
+  isArray: (input) => _.is([])(input),
+  isObject: (input) => _.is(({}))(input),
+}
+
 class Veact {
   constructor(rootDOM, vDOM, model) {
     this.rootDOM = rootDOM
@@ -10,10 +18,15 @@ class Veact {
   }
 
   static createElement(type, props, ...children) {
-    if (typeof type === 'function') {
+    // For directly passing function as a component
+    if (_.isFunction(type)) {
       const vDOM = type(props)
       type = vDOM.type
       children = vDOM.children
+    }
+
+    if (_.isArray(children[0])) {
+      children = children[0]
     }
 
     // Config Initialization
@@ -21,7 +34,7 @@ class Veact {
     props = props ? props : {}
 
     const childrenVDOM = children.map(child => {
-      if (typeof child === 'function') {
+      if (_.isFunction(child)) {
         return child()
       }
       return child
@@ -44,7 +57,7 @@ class Veact {
   }
 
   render(vDOM) {
-    if (typeof vDOM === 'string') {
+    if (_.isString(vDOM)) {
       return document.createTextNode(vDOM)
     }
 

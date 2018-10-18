@@ -2,10 +2,14 @@ import Veact from '../../service/veact'
 
 export default () => {
   return (
-    <div className="App-header">
-      <header>
-        <h1>Welcome</h1> 
-      </header>
-    </div>
+    <header
+      className="App-header"
+      style={{
+        textAlign: 'center',
+        padding: '10px',
+      }}
+    >
+      <h1>Welcome to the Veact App</h1> 
+    </header>
   )
 }
