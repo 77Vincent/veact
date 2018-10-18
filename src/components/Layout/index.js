@@ -4,7 +4,7 @@ import Nav from '../Nav'
 
 export default ({ app }) => {
   return (
-    <div>
+    <div className="App-layout">
       <Nav app={app} />
     </div>
   )

@@ -78,6 +78,13 @@ class Veact {
     this.rootDOM.appendChild(this.render(vDOM))
   }
 
+  update() {
+    const newVDOM = this.App(this)
+
+    this.rootDOM.removeChild(this.rootDOM.children[0])
+    this.rootDOM.appendChild(this.render(this.App(this)))
+  }
+
   dispatch(callback) {
     const newModel = callback(this.model)
     if (!_.isObject(newModel)) {
@@ -85,8 +92,7 @@ class Veact {
     }
 
     _.assign(this.model, newModel)
-    this.rootDOM.removeChild(this.rootDOM.children[0])
-    this.rootDOM.appendChild(this.render(this.App(this)))
+    this.update()
   }
 
   render(vDOM) {
