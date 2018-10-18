@@ -13,17 +13,7 @@ export default (app) => {
     ),
     Veact.createElement(
       'div',
-      {
-        className: 'App-header-logo',
-        onClick() {
-          app.setState((state) => {
-            return {
-              ...state,
-              title: 'New title',
-            }
-          })
-        },
-      },
+      { className: 'App-header-logo' },
       'App logo',
     ),
     Layout(app),
