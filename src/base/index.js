@@ -4,7 +4,7 @@ import { Header, Layout, Footer, Loading } from '../components'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.scss'
 
-const App = (app) => {
+const App = app => {
   app.onMount(() => {
     fetch('https://jsonplaceholder.typicode.com/todos')
       .then(res => res.json())
