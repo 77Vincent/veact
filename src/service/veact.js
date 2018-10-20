@@ -19,6 +19,7 @@ const _ = {
 }
 
 const errorMessages = {
+  APP_IN_MOUNT_NOT_FUNCTION: 'Mount only accept one function.',
   TEXT_NODE_IS_ARRAY: 'The node should not be type of array.', 
   PAYLOAD_ISNOT_PLAIN_OBJECT: 'The returned payload in the dispatch function should be a plain object.',
 }
@@ -72,15 +73,16 @@ class Veact {
   }
 
   mount(App) {
-    const vDOM = App(this)
-    this.vDOM = vDOM 
+    if (!_.isFunction(App)) {
+      throw new Error(errorMessages.APP_IN_MOUNT_NOT_FUNCTION)
+    }
     this.App = App
-    this.rootDOM.appendChild(this.render(vDOM))
+    this.vDOM = App(this)
+    this.rootDOM.appendChild(this.render(this.vDOM))
+    return this
   }
 
   update() {
-    const newVDOM = this.App(this)
-
     this.rootDOM.removeChild(this.rootDOM.children[0])
     this.rootDOM.appendChild(this.render(this.App(this)))
   }
