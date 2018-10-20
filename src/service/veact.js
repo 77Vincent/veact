@@ -9,6 +9,7 @@ const _ = {
   isArray: (input) => _.is([])(input),
   isObject: (input) => _.is(({}))(input),
   assign(source = {}, ...inputs) {
+    source = _.isObject(source) ? source : {}
     for (let input of inputs) {
       for (let key of Object.keys(input)) {
         source[key] = input[key]
@@ -34,7 +35,9 @@ class Veact {
   }
 
   static createApp(rootDOM, model) {
-    return new Veact(rootDOM, {}, model)
+    const app = new Veact(rootDOM, {}, model)
+    this.app = app
+    return app
   }
 
   // Create the vDOM object for render
@@ -42,7 +45,7 @@ class Veact {
     // For directly passing function as a component
     // the babel plugin-transform-react-jsx will parse the whole function as the type
     if (_.isFunction(type)) {
-      const vDOM = type(props)
+      const vDOM = type(_.assign(props, { app: this.app }))
       type = vDOM.type
       props = vDOM.props
       children = vDOM.children
@@ -78,13 +81,13 @@ class Veact {
     }
     this.App = App
     this.vDOM = App(this)
-    this.rootDOM.appendChild(this.render(this.vDOM))
+    this.rootDOM.appendChild(this._render(this.vDOM))
     return this
   }
 
-  update() {
+  _update() {
     this.rootDOM.removeChild(this.rootDOM.children[0])
-    this.rootDOM.appendChild(this.render(this.App(this)))
+    this.rootDOM.appendChild(this._render(this.App(this)))
   }
 
   dispatch(callback) {
@@ -94,10 +97,10 @@ class Veact {
     }
 
     _.assign(this.model, newModel)
-    this.update()
+    this._update()
   }
 
-  render(vDOM) {
+  _render(vDOM) {
     // When the node of the vDOM is not an object
     if (_.isString(vDOM) || _.isBool(vDOM) || _.isNum(vDOM)) {
       return document.createTextNode(String(vDOM))
@@ -122,7 +125,7 @@ class Veact {
     }
 
     vDOM.children
-      .map(v => this.render(v))
+      .map(v => this._render(v))
       .forEach($el.appendChild.bind($el))
     
     return $el

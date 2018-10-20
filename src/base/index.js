@@ -21,11 +21,11 @@ const App = (app) => {
 
   return (
     <div className="App-root" >
-      <Loading app={app}/>
+      <Loading />
 
       <Header />
 
-      <Layout app={app} />
+      <Layout />
       
       <Footer />
     </div>
