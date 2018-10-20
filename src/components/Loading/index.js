@@ -1,5 +1,7 @@
 import Veact from '../../service/veact'
 
+import './index.scss';
+
 export default ({ app }) => {
   return (
     <div
@@ -8,7 +10,6 @@ export default ({ app }) => {
         visibility: app.model.isPageLoading ? 'visible' : 'hidden',
       }}
     >
-      <h1>Loading</h1>
     </div>
   ) 
 }

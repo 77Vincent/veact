@@ -1,6 +1,8 @@
 import Veact from '../service/veact'
 
 import { Header, Layout, Footer, Loading } from '../components'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.scss'
 
 const App = (app) => {
   app.onMount(() => {
@@ -18,10 +20,7 @@ const App = (app) => {
   }, App)
 
   return (
-    <div
-      className="App-root"
-      style={{backgroundColor: 'lightyellow'}}
-    >
+    <div className="App-root" >
       <Loading app={app}/>
 
       <Header />
