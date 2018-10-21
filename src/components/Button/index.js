@@ -2,13 +2,13 @@ import Veact from '../../service/veact'
 
 import './index.scss'
 
-export default ({ children }) => {
+export default ({ children, onClick }) => {
   return (
-    <div className="App-button" >
-      <div>
-        {children}
-        bbbbbbbbb
-      </div>
-    </div>
+    <button
+      className="App-button"
+      onClick={onClick}
+    >
+      {children}
+    </button>
   ) 
 }

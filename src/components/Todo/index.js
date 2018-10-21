@@ -85,24 +85,9 @@ export default ({ app }) => {
 
   return (
     <div className="App-todo">
-      <Button>
-        <div>jjjjjjjj</div>
-        <div>aaaaa</div>
-      </Button>
-      <button
-        className="App-todo-button"
-        onClick={addTodo}
-      >Add todo</button>
-
-      <button
-        className="App-todo-button"
-        onClick={removeAll}
-      >Remove all</button>
-
-      <button
-        className="App-todo-button"
-        onClick={reload}
-      >Reload</button>
+      <Button onClick={addTodo}>Add todo</Button>
+      <Button onClick={removeAll}>Remove all todo</Button>
+      <Button onClick={reload}>Reload all todo</Button>
 
       <ul>
         {

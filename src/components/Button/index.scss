@@ -1,1 +1,15 @@
 @import '../../base/var.scss';
+@import '../../base/var.scss';
+
+.App-button {
+  border: 1px solid $color-theme;
+  color: $color-theme;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $color-theme;
+    color: white;
+  }
+}
