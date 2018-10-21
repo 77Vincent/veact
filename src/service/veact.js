@@ -45,7 +45,7 @@ class Veact {
     // For directly passing function as a component
     // the babel plugin-transform-react-jsx will parse the whole function as the type
     if (_.isFunction(type)) {
-      const vDOM = type(_.assign(props, { app: this.app }))
+      const vDOM = type(_.assign(props, { app: this.app, children: children[0] }))
       type = vDOM.type
       props = vDOM.props
       children = vDOM.children
@@ -90,7 +90,7 @@ class Veact {
     this.rootDOM.appendChild(this._render(this.App(this)))
   }
 
-  dispatch(callback) {
+  dispatch = (callback) => {
     const newModel = callback(this.model)
     if (!_.isObject(newModel)) {
       throw new Error(errorMessages.PAYLOAD_ISNOT_PLAIN_OBJECT)

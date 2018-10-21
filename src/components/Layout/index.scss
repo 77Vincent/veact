@@ -1,0 +1,9 @@
+@import '../../base/var.scss';
+
+.App-layout {
+  padding-bottom: 30px;
+
+  .App-section {
+    border-top: 1px solid $color-theme;
+  }
+}

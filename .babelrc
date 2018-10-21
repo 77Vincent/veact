@@ -10,6 +10,7 @@
   "plugins": [
     ["@babel/plugin-transform-react-jsx", {
       "pragma": "Veact.createElement"
-    }]
+    }],
+    "@babel/plugin-proposal-class-properties"
   ] 
 }

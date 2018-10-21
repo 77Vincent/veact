@@ -1,8 +1,12 @@
 import Veact from '../../service/veact'
 
+import Button from '../Button'
+
 export default ({ app }) => {
-  const removeItem = (index) => () => {
-    app.dispatch(model => {
+  const { dispatch } = app
+
+  const removeItem = index => () => {
+    dispatch(model => {
       const newTodos = [...model.todos]
       newTodos.splice(index, 1)
       return {
@@ -12,8 +16,8 @@ export default ({ app }) => {
     })
   }
 
-  const toggleTodo = (index) => () => {
-    app.dispatch(model => {
+  const toggleTodo = index => () => {
+    dispatch(model => {
       const newTodos = [...model.todos]
       const target = newTodos.filter((item, i) => {
         return  i === index
@@ -29,7 +33,7 @@ export default ({ app }) => {
   }
 
   const addTodo = () => {
-    app.dispatch(model => {
+    dispatch(model => {
       const newTodos = [...model.todos, { title: 'New item', completed: false }]
       return {
         ...model,
@@ -39,7 +43,7 @@ export default ({ app }) => {
   }
 
   const removeAll = () => {
-    app.dispatch(model => {
+    dispatch(model => {
       return {
         ...model,
         todos: [],
@@ -48,7 +52,7 @@ export default ({ app }) => {
   }
   
   const reload = () => {
-    app.dispatch(model => {
+    dispatch(model => {
       return {
         ...model,
         isPageLoading: true,
@@ -61,7 +65,7 @@ export default ({ app }) => {
         app.dispatch(model => {
           return {
             ...model,
-            todos: json.slice(0, 10),
+            todos: json.slice(0, 5),
             isPageLoading: false,
           }
         })
@@ -81,14 +85,10 @@ export default ({ app }) => {
 
   return (
     <div className="App-todo">
-      <ul>
-        {
-          app.model.todos.map((item, index) => {
-            return <Item item={item} index={index} />
-          })
-        }
-      </ul>
-
+      <Button>
+        <div>aaaaa</div>
+        <div>jjjjjjjj</div>
+      </Button>
       <button
         className="App-todo-button"
         onClick={addTodo}
@@ -103,6 +103,14 @@ export default ({ app }) => {
         className="App-todo-button"
         onClick={reload}
       >Reload</button>
+
+      <ul>
+        {
+          app.model.todos.map((item, index) => {
+            return <Item item={item} index={index} />
+          })
+        }
+      </ul>
     </div>
   )
 }

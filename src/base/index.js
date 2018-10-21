@@ -12,7 +12,7 @@ const App = app => {
         app.dispatch(model => {
           return {
             ...model,
-            todos: json.slice(0, 10),
+            todos: json.slice(0, 5),
             isPageLoading: false,
           }
         })

@@ -1,5 +1,6 @@
 import Veact from '../../service/veact'
 
+import './index.scss'
 import Todo from '../Todo'
 
 export default props => {
