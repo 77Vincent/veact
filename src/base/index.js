@@ -25,7 +25,7 @@ const App = app => {
 
       <Header />
 
-      <Layout />
+      <Layout className="container"/>
       
       <Footer />
     </div>

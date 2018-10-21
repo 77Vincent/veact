@@ -80,7 +80,7 @@ export default ({ app }) => {
   }
 
   return (
-    <div className="App-nav">
+    <div className="App-todo">
       <ul>
         {
           app.model.todos.map((item, index) => {
@@ -90,17 +90,17 @@ export default ({ app }) => {
       </ul>
 
       <button
-        className="App-nav-button"
+        className="App-todo-button"
         onClick={addTodo}
       >Add todo</button>
 
       <button
-        className="App-nav-button"
+        className="App-todo-button"
         onClick={removeAll}
       >Remove all</button>
 
       <button
-        className="App-nav-button"
+        className="App-todo-button"
         onClick={reload}
       >Reload</button>
     </div>

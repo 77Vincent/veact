@@ -1,11 +1,13 @@
 import Veact from '../../service/veact'
 
-import Nav from '../Nav'
+import Todo from '../Todo'
 
-export default () => {
+export default props => {
+  const { className } = props
+
   return (
-    <div className="App-layout">
-      <Nav />
+    <div className={`App-layout ${className}`}>
+      <Todo />
     </div>
   )
 }

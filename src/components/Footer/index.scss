@@ -1,0 +1,12 @@
+@import '../../base/var.scss';
+
+.App-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color-theme;
+  color: white;
+  text-align: center;
+  padding: 5px 0;
+}
