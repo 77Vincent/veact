@@ -44,15 +44,22 @@ class Veact {
   static createElement(type, props, ...children) {
     // For directly passing function as a component
     // the babel plugin-transform-react-jsx will parse the whole function as the type
+    let readyChildren = []
+    for (let child of children) {
+      if (_.isArray(child)) {
+        readyChildren.push(...child)
+      } else {
+        readyChildren.push(child)
+      }
+    }
+
     if (_.isFunction(type)) {
-      const vDOM = type(_.assign(props, { app: this.app, children: children[0] }))
+      const vDOM = type(_.assign(props, { app: this.app, children }))
       type = vDOM.type
       props = vDOM.props
       children = vDOM.children
-    }
-
-    if (_.isArray(children[0])) {
-      children = children[0]
+    } else {
+      children = readyChildren
     }
 
     // Config Initialization
@@ -107,9 +114,6 @@ class Veact {
     }
     if (_.isNull(vDOM)) {
       return document.createTextNode('')
-    }
-    if (_.isArray(vDOM)) {
-      throw new Error(errorMessages.TEXT_NODE_IS_ARRAY)
     }
 
     const { className, onClick, style } = vDOM.props

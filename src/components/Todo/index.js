@@ -86,8 +86,8 @@ export default ({ app }) => {
   return (
     <div className="App-todo">
       <Button>
-        <div>aaaaa</div>
         <div>jjjjjjjj</div>
+        <div>aaaaa</div>
       </Button>
       <button
         className="App-todo-button"
