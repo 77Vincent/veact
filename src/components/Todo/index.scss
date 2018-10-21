@@ -1,5 +1,15 @@
 @import '../../base/var.scss';
 
 .App-todo {
+  button {
+    margin: 0 6px;
+  }
 
+  .App-todo-buttons {
+    margin-bottom: 20px; 
+  }
+
+  .App-todo-item {
+    margin: 10px 0;
+  }
 }

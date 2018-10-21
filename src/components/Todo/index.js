@@ -1,5 +1,6 @@
 import Veact from '../../service/veact'
 
+import './index.scss'
 import Button from '../Button'
 
 export default ({ app }) => {
@@ -74,28 +75,30 @@ export default ({ app }) => {
 
   const Item = ({ item, index }) => {
     return (
-      <li>
+      <li className="App-todo-item">
         <h4>{item.title}</h4>
         <span>Is completed: {item.completed}</span>
-        <button onClick={toggleTodo(index)}>Complete</button>
-        <button onClick={removeItem(index)}>Remove</button>
+        <Button onClick={toggleTodo(index)}>Toggle status</Button>
+        <Button onClick={removeItem(index)}>Remove</Button>
       </li>
     )
   }
 
   return (
     <div className="App-todo">
-      <Button onClick={addTodo}>Add todo</Button>
-      <Button onClick={removeAll}>Remove all todo</Button>
-      <Button onClick={reload}>Reload all todo</Button>
+      <div className="App-todo-buttons">
+        <Button onClick={addTodo}>Add todo</Button>
+        <Button onClick={removeAll}>Remove all todo</Button>
+        <Button onClick={reload}>Reload all todo</Button>
+      </div>
 
-      <ul>
+      <ol>
         {
           app.model.todos.map((item, index) => {
             return <Item item={item} index={index} />
           })
         }
-      </ul>
+      </ol>
     </div>
   )
 }

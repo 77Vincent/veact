@@ -3,7 +3,7 @@ import Veact from './service/veact'
 import App from './base'
 
 const model = {
-  title: 'Hello World',
+  title: 'Welcome to Veact App',
   todos: [],
   isPageLoading: true,
 } 

@@ -2,7 +2,15 @@
 
 .App-header {
   text-align: center;
-  color: $color-theme;
   padding: 20px 0;
   margin-bottom: 20px;
+  border-bottom: 1px solid $color-theme;
+
+  h1 {
+    color: $color-theme;
+  }
+
+  h4 {
+    opacity: 0.6;
+  }
 }
