@@ -10,6 +10,8 @@ Pure functional, simplified React-like Javascript library with built-in state ma
 - [Functional Component](#function-component)
 
 ## Quick Start <a name="quick-start"></a>
+This documentation assumes that you are not totally stranger to [React](https://reactjs.org/), [Redux](https://redux.js.org/) and [ES6](http://es6-features.org/#Constants). The following "Hello World" example is a glance of the usage of Veact:
+
 ```js
 // App.js
 
@@ -24,6 +26,7 @@ export default {
 ```
 ```js
 // index.js
+
 import Veact from 'Veact'
 
 import model from './model'
@@ -35,7 +38,6 @@ Veact.createApp(
   App
 )
 ```
-The above "Hello World" example is a glance of the usage of the library, here are some notes:
 
 ## Using JSX <a name="using-jsx"></a>
 The example uses [JSX](https://reactjs.org/docs/introducing-jsx.html) syntax because Veact implements the same "[createElement](https://reactjs.org/docs/react-api.html#createelement)" function as React does. Although JSX is not mandatory but it's like a syntax sugar that can boost the productivity. JSX is not natively supported by any Javascript runtime, to use it you need to enable a babel plugin called "[@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)" and to configure the .babelrc as follows: 
@@ -57,7 +59,6 @@ The example uses [JSX](https://reactjs.org/docs/introducing-jsx.html) syntax bec
 
 const changeTitle = app = () => {
   app.dispatch(model => ({
-    ...model,
     title: 'New Title'
   }))
 }
@@ -70,15 +71,18 @@ export default app => <div onClick={changeTitle(app)}>{ app.model.title }</div>
  ## Dispatch <a name="dispatch"></a>
 Dispatch is the function to update model, and then update the virtual DOM and re-render the real DOM in the background. Unlike the "[dispatch](https://redux.js.org/basics/actions)" in Redux, in Veact, things get simpler, dispatch only accepts one callback function with the current [model](#model) as the default argument, it expects the callback to return a new model which will be merged to the current model. No direct modification to the model or any kinds of side-effects should be made:
 ```js
+// model.js
+
+export default {
+  todos: ['todo 1', 'todo 2', 'todo 3'],
+}
+```
+```js
 // App.js
 
-const addTodo = app = () => {
-  const { model } = app
-  const newTodos = [...model.todo].push('new todo')
-  
+const addTodo = app = () => {  
   app.dispatch(model => ({
-    ...model,
-    todo: newTodos,
+    todos: [...model.todos].push('new todo')
   }))
 }
 
@@ -92,4 +96,16 @@ export default app => (
   
   <button onClick={addTodo(app)}>Add todo</button>
 )
+```
+<b>Wrong thing</b> to do in the dispatch callback function is like:
+```js
+const addTodo = app = () => {
+  app.dispatch(model => {
+    // Direct modification to the model
+    model.todos.push('new todo')
+    return {
+      todos: model.todos
+    }
+  })
+}
 ```
