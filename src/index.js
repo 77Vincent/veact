@@ -8,4 +8,8 @@ const model = {
   isPageLoading: true,
 } 
 
-Veact.createApp(document.getElementById('root'), model).mount(App)
+Veact.createApp(
+  document.getElementById('root'),
+  model,
+  App
+)
