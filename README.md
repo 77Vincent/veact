@@ -13,18 +13,6 @@ Pure functional, simplified React-like Javascript library with built-in state ma
 This documentation assumes that you are not totally stranger to [React](https://reactjs.org/), [Redux](https://redux.js.org/) and [ES6](http://es6-features.org/#Constants). The following "Hello World" example is a glance of the usage of Veact:
 
 ```js
-// App.js
-
-export default ({ model }) => <div>{ model.title }</div>
-```
-```js
-// model.js
-
-export default {
-  title: 'Hello World'
-}
-```
-```js
 // index.js
 
 import Veact from 'Veact'
@@ -37,6 +25,18 @@ Veact.createApp(
   model,
   App
 )
+```
+```js
+// App.js
+
+export default ({ app }) => <div>{ app.model.title }</div>
+```
+```js
+// model.js
+
+export default {
+  title: 'Hello World'
+}
 ```
 
 ## Using JSX <a name="using-jsx"></a>
@@ -63,7 +63,7 @@ const changeTitle = app = () => {
   }))
 }
 
-export default app => <div onClick={changeTitle(app)}>{ app.model.title }</div>
+export default ({ app }) => <div onClick={changeTitle(app)}>{ app.model.title }</div>
 ```
 
 > Tips: When creating component-based functions, the advantage of using higher-order function which returns the actual function, is that the base-function will be only created once when the module is loaded.
@@ -87,7 +87,7 @@ const addTodo = app = () => {
 }
 
 // A todo list
-export default app => (
+export default ({ app }) => (
   <ul>
     {
       app.model.todos.map(todo => <li>{todo}</li>)
@@ -101,7 +101,7 @@ export default app => (
 ```js
 const addTodo = app = () => {
   app.dispatch(model => {
-    // Direct modification to the model
+    // Direct modification to the model is a side-effect!
     model.todos.push('new todo')
     return {
       todos: model.todos
