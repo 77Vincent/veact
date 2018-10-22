@@ -97,7 +97,7 @@ export default app => (
   <button onClick={addTodo(app)}>Add todo</button>
 )
 ```
-<b>Wrong thing</b> to do in the dispatch callback function is like:
+<b>Wrong thing</b> to do in the dispatch callback function:
 ```js
 const addTodo = app = () => {
   app.dispatch(model => {
@@ -107,5 +107,30 @@ const addTodo = app = () => {
       todos: model.todos
     }
   })
+}
+```
+When dealing with more complex models, remember to always return the root property from which you are doing the modification to restore the intial structure of your model:
+```js
+// model.js
+
+export default {
+  user: {
+    status: {
+      isLoggedIn: false
+    }
+  }
+}
+```
+```js
+// App.js
+
+const login = app = () => {
+  app.dispatch(model => ({
+    user: {
+      status: {
+        isLoggedIn: true
+      }
+    }
+  }))
 }
 ```
