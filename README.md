@@ -7,7 +7,7 @@ Pure functional, simplified React-like Javascript library with built-in state ma
 - [Using JSX](#using-jsx)
 - [Model](#model)
 - [Dispatch](#dispatch)
-- [Functional Component](#function-component)
+- [Functional Component](#functional-component)
 
 ## Quick Start <a name="quick-start"></a>
 This documentation assumes that you are not totally stranger to [React](https://reactjs.org/), [Redux](https://redux.js.org/) and [ES6](http://es6-features.org/#Constants). The following "Hello World" example is a glance of the usage of Veact:
@@ -146,7 +146,7 @@ export default ({ app }) => <button onClick={login(app)}>Login</button>
 ```
 
 ## Functional Component <a name="functional-component"></a>
-To create a component is to create a function which returns a virtual DOM object.
+To create a component is to create a function which returns a virtual DOM object. To pass data from parent component to children component, simply declare the 
 ```js
 // App.js
 
