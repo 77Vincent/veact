@@ -15,7 +15,7 @@ This documentation assumes that you are not totally stranger to [React](https://
 ```js
 // index.js
 
-import Veact from 'Veact'
+import Veact from 'veact'
 
 import model from './model'
 import App from './App'
@@ -28,6 +28,8 @@ Veact.createApp(
 ```
 ```js
 // App.js
+
+import Veact from 'veact'
 
 export default ({ app }) => <div>{ app.model.title }</div>
 ```
@@ -57,6 +59,8 @@ The example uses [JSX](https://reactjs.org/docs/introducing-jsx.html) syntax bec
 ```js
 // App.js
 
+import Veact from 'veact'
+
 const changeTitle = app = () => {
   app.dispatch(model => ({
     title: 'New Title'
@@ -79,6 +83,8 @@ export default {
 ```
 ```js
 // App.js
+
+import Veact from 'veact'
 
 const addTodo = app = () => {  
   app.dispatch(model => ({
@@ -124,6 +130,8 @@ export default {
 ```js
 // App.js
 
+import Veact from 'veact'
+
 const login = app = () => {
   app.dispatch(model => ({
     user: {
@@ -133,4 +141,30 @@ const login = app = () => {
     }
   }))
 }
+
+export default ({ app }) => <button onClick={login(app)}>Login</button>
+```
+
+## Functional Component <a name="functional-component"></a>
+To create a component is to create a function which returns a virtual DOM object.
+```js
+// App.js
+
+import Veact from 'veact'
+import Header from './Header'
+
+export default () => (
+  <div>
+    <Header title="Hello World"/>
+  </div>
+)
+```
+```js
+// Header.js
+
+export default ({ title }) => (
+  <header>
+    <h1>{ title }</h1>
+  </header>
+)
 ```
